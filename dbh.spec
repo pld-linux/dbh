@@ -7,7 +7,7 @@ Version: 	%{ver}.%{rel}
 Release: 	0.1
 License:	QPL
 Group:		Libraries
-Source0:	http://belnet.dl.sourceforget.net/sourceforge/dbh/%{name}_%{ver}-%{rel}.tgz
+Source0:	http://belnet.dl.sourceforge.net/sourceforge/dbh/%{name}_%{ver}-%{rel}.tgz
 # Source0-md5:	11352e539a3e40f23d539a52f2153b95
 URL:		http://dbh.sourceforge.net
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
