@@ -1,12 +1,12 @@
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
-Version:	1.0.22
+Version:	1.0.24
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
-# Source0-md5:	2dfd35a284068ed0e5a545d18f9bf0f2
+# Source0-md5:	42e122a321089f2429986d0d161ed92a
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -35,7 +35,7 @@ daje ¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 Summary:	Disk based hash library development files
 Summary(pl):	Pliki nag³ówkowe biblioteki dbh
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	dbh-examples
 
 %description devel
@@ -48,7 +48,7 @@ Pliki nag³ówkowe biblioteki dbh.
 Summary:	Disk based hash static library
 Summary(pl):	Statyczna biblioteka dbh
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Disk based hash static library.
@@ -63,6 +63,7 @@ Statyczna biblioteka dbh.
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__automake}
+%{__autoheader}
 %{__autoconf}
 %configure
 
