@@ -16,14 +16,14 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%description 
+%description
 Disk based hashes is a method to create multidimensional binary trees
 on disk. This library permits the extension of database concept to a
 plethora of electronic data, such as graphic information. With the
 multidimensional binary tree it is possible to mathematically prove
 that access time to any particular record is minimized (using the
 concept of critical points from calculus), which provides the means to
-construct optimized databases for particular applications.  
+construct optimized databases for particular applications.
 
 %description -l pl
 Hasze przechowywane na dysku to metoda tworzenia wielowymiarowych
@@ -67,7 +67,7 @@ Statyczna biblioteka dbh.
 %{__aclocal}
 %{__automake}
 %{__autoconf}
-%configure 
+%configure
 
 %{__make}
 
@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT
 
 cd examples
 install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
