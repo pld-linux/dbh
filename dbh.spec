@@ -1,15 +1,15 @@
 %define		ver		1.0
-%define		rel		14
+%define		rel		15
 
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
 Version:	%{ver}.%{rel}
-Release:	0.1
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/dbh/%{name}_%{ver}-%{rel}.tgz
-# Source0-md5:	11352e539a3e40f23d539a52f2153b95
+Source0:	http://dl.sourceforge.net/dbh/%{name}_%{ver}-%{rel}.tar.gz
+# Source0-md5:	b4124966219088f8cd6ff02806f16725
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
