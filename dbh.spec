@@ -2,50 +2,65 @@
 %define		rel		14
 
 Summary:	Disk based hash library
+Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
 Version: 	%{ver}.%{rel}
 Release: 	0.1
-License:	QPL
+License:	LGPL
 Group:		Libraries
-Source0:	http://belnet.dl.sourceforge.net/sourceforge/dbh/%{name}_%{ver}-%{rel}.tgz
+Source0:	http://dl.sourceforge.net/dbh/%{name}_%{ver}-%{rel}.tgz
 # Source0-md5:	11352e539a3e40f23d539a52f2153b95
-URL:		http://dbh.sourceforge.net
+URL:		http://dbh.sourceforge.net/
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
-Disk based hashes is a method to create multidimensional binary trees on disk.
-This library permits the extension of database concept to a plethora of 
-electronic data, such as graphic information. With the multidimensional binary 
-tree it is possible to mathematically prove that access time to any 
-particular record is minimized (using the concept of critical points from 
-calculus), which provides the means to construct optimized databases for 
-particular applications.  
+Disk based hashes is a method to create multidimensional binary trees
+on disk. This library permits the extension of database concept to a
+plethora of electronic data, such as graphic information. With the
+multidimensional binary tree it is possible to mathematically prove
+that access time to any particular record is minimized (using the
+concept of critical points from calculus), which provides the means to
+construct optimized databases for particular applications.  
+
+%description -l pl
+Hasze przechowywane na dysku to metoda tworzenia wielowymiarowych
+drzew binarnych na dysku. Biblioteka pozwala rozszerzaæ pojêcie bazy
+danych o bogactwo danych elektronicznych, takich jak informacje
+graficzne. Mo¿na udowodniæ matematycznie, ¿e przy u¿yciu
+wielowymiarowego drzewa binarnego czas dostêpu do ka¿dego konkretnego
+rekordu jest minimalny (u¿ywaj±c zasady punktów krytycznych), co
+daje ¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 
 %package devel
 Summary:	Disk based hash library development files
-Group:		Libraries
+Summary(pl):	Pliki nag³ówkowe biblioteki dbh
+Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Obsoletes:	dbh-examples
 
 %description devel
-Disk based hash library development files
+Disk based hash library development files.
+
+%description devel -l pl
+Pliki nag³ówkowe biblioteki dbh.
 
 %package static
-Summary:	Disk based hash static libraries
-Group:		Libraries
+Summary:	Disk based hash static library
+Summary(pl):	Statyczna biblioteka dbh
+Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-Disk based hash static libraries
+Disk based hash static library.
 
-%package examples
-Summary:	Disk based hash library examples
-Group:		Libraries
-
-%description examples
-Disk based hash library examples
+%description static -l pl
+Statyczna biblioteka dbh.
 
 %prep
-%setup  -q -n %{name}_%{ver}-%{rel}
+%setup -q -n %{name}_%{ver}-%{rel}
 
 %build
 %{__libtoolize}
@@ -53,41 +68,41 @@ Disk based hash library examples
 %{__automake}
 %{__autoconf}
 %configure 
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/src/examples/%{name}-%{version}
-make install DESTDIR=$RPM_BUILD_ROOT 
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT 
 
 cd examples
-install -m 644 simple_hash.c $RPM_BUILD_ROOT/usr/src/examples/%{name}-%{version}
-install -m 644 trafico.c $RPM_BUILD_ROOT/usr/src/examples/%{name}-%{version}
-install -m 644 Makefile $RPM_BUILD_ROOT/usr/src/examples/%{name}-%{version}
+install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+install trafico.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+install Makefile $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
-%doc  AUTHORS COPYING ChangeLog NEWS README TODO doc/*.html
-%attr(755,root,root) %{_libdir}/*.so.*
+%doc AUTHORS ChangeLog
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}
-%{_libdir}/*.la
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%doc doc/*.html
+%attr(755,root,root) %{_libdir}/lib*.so
+%{_libdir}/lib*.la
+%{_includedir}/*.h
+%{_pkgconfigdir}/*.pc
+%{_examplesdir}/%{name}-%{version}
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libdbh.a
-
-%files examples
-%defattr(644,root,root,755)
-%dir /usr/src/examples/%{name}-%{version}
-/usr/src/examples/%{name}-%{version}/*
+%{_libdir}/lib*.a
