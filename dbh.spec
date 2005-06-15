@@ -1,4 +1,6 @@
+# Conditional build:
 %bcond_without	static_libs	# don't build static library
+#
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
