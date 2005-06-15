@@ -1,3 +1,4 @@
+%bcond_without	static_libs	# don't build static library
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
@@ -65,7 +66,8 @@ Statyczna biblioteka dbh.
 %{__automake}
 %{__autoheader}
 %{__autoconf}
-%configure
+%configure \
+	%{!?with_static_libs:--disable-static}
 
 %{__make}
 
@@ -101,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/*.pc
 %{_examplesdir}/%{name}-%{version}
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
