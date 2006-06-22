@@ -1,15 +1,16 @@
+#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
-Version:	1.0.24
+Version:	4.5.0
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
-# Source0-md5:	42e122a321089f2429986d0d161ed92a
+# Source0-md5:	52b4b0d5ee0513dc796e989220c11bc6
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -83,7 +84,6 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cd examples
 install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 install trafico.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-install Makefile $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
