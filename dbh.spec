@@ -1,15 +1,15 @@
-%define		ver		1.0
-%define		rel		15
-
+# Conditional build:
+%bcond_without	static_libs	# don't build static library
+#
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
-Version:	%{ver}.%{rel}
+Version:	1.0.24
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/dbh/%{name}_%{ver}-%{rel}.tar.gz
-# Source0-md5:	b4124966219088f8cd6ff02806f16725
+Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
+# Source0-md5:	42e122a321089f2429986d0d161ed92a
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -38,7 +38,7 @@ daje ¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 Summary:	Disk based hash library development files
 Summary(pl):	Pliki nag³ówkowe biblioteki dbh
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	dbh-examples
 
 %description devel
@@ -51,7 +51,7 @@ Pliki nag³ówkowe biblioteki dbh.
 Summary:	Disk based hash static library
 Summary(pl):	Statyczna biblioteka dbh
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Disk based hash static library.
@@ -60,14 +60,16 @@ Disk based hash static library.
 Statyczna biblioteka dbh.
 
 %prep
-%setup -q -n %{name}_%{ver}-%{rel}
+%setup -q
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__automake}
+%{__autoheader}
 %{__autoconf}
-%configure
+%configure \
+	%{!?with_static_libs:--disable-static}
 
 %{__make}
 
@@ -103,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/*.pc
 %{_examplesdir}/%{name}-%{version}
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
