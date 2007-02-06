@@ -1,15 +1,16 @@
+#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Disk based hash library
 Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
 Name:		dbh
-Version:	1.0.24
+Version:	4.5.0
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
-# Source0-md5:	42e122a321089f2429986d0d161ed92a
+# Source0-md5:	52b4b0d5ee0513dc796e989220c11bc6
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -31,8 +32,8 @@ drzew binarnych na dysku. Biblioteka pozwala rozszerzaæ pojêcie bazy
 danych o bogactwo danych elektronicznych, takich jak informacje
 graficzne. Mo¿na udowodniæ matematycznie, ¿e przy u¿yciu
 wielowymiarowego drzewa binarnego czas dostêpu do ka¿dego konkretnego
-rekordu jest minimalny (u¿ywaj±c zasady punktów krytycznych), co
-daje ¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
+rekordu jest minimalny (u¿ywaj±c zasady punktów krytycznych), co daje
+¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 
 %package devel
 Summary:	Disk based hash library development files
@@ -83,7 +84,6 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cd examples
 install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 install trafico.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-install Makefile $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,19 +94,19 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libdbh-4.5.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc doc/*.html
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libdbh.so
+%{_libdir}/libdbh.la
 %{_includedir}/*.h
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/dbh.pc
 %{_examplesdir}/%{name}-%{version}
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libdbh.a
 %endif
