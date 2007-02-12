@@ -3,7 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Disk based hash library
-Summary(pl):	Biblioteka obs³uguj±ca tablice haszuj±ce na dysku
+Summary(pl.UTF-8):   Biblioteka obsÅ‚ugujÄ…ca tablice haszujÄ…ce na dysku
 Name:		dbh
 Version:	4.5.0
 Release:	1
@@ -26,18 +26,18 @@ that access time to any particular record is minimized (using the
 concept of critical points from calculus), which provides the means to
 construct optimized databases for particular applications.
 
-%description -l pl
+%description -l pl.UTF-8
 Hasze przechowywane na dysku to metoda tworzenia wielowymiarowych
-drzew binarnych na dysku. Biblioteka pozwala rozszerzaæ pojêcie bazy
+drzew binarnych na dysku. Biblioteka pozwala rozszerzaÄ‡ pojÄ™cie bazy
 danych o bogactwo danych elektronicznych, takich jak informacje
-graficzne. Mo¿na udowodniæ matematycznie, ¿e przy u¿yciu
-wielowymiarowego drzewa binarnego czas dostêpu do ka¿dego konkretnego
-rekordu jest minimalny (u¿ywaj±c zasady punktów krytycznych), co
-daje ¶rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
+graficzne. MoÅ¼na udowodniÄ‡ matematycznie, Å¼e przy uÅ¼yciu
+wielowymiarowego drzewa binarnego czas dostÄ™pu do kaÅ¼dego konkretnego
+rekordu jest minimalny (uÅ¼ywajÄ…c zasady punktÃ³w krytycznych), co
+daje Å›rodki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 
 %package devel
 Summary:	Disk based hash library development files
-Summary(pl):	Pliki nag³ówkowe biblioteki dbh
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki dbh
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	dbh-examples
@@ -45,19 +45,19 @@ Obsoletes:	dbh-examples
 %description devel
 Disk based hash library development files.
 
-%description devel -l pl
-Pliki nag³ówkowe biblioteki dbh.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki dbh.
 
 %package static
 Summary:	Disk based hash static library
-Summary(pl):	Statyczna biblioteka dbh
+Summary(pl.UTF-8):   Statyczna biblioteka dbh
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Disk based hash static library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka dbh.
 
 %prep
