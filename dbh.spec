@@ -3,7 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Disk based hash library
-Summary(pl.UTF-8):   Biblioteka obsługująca tablice haszujące na dysku
+Summary(pl.UTF-8):	Biblioteka obsługująca tablice haszujące na dysku
 Name:		dbh
 Version:	4.5.0
 Release:	1
@@ -37,7 +37,7 @@ daje środki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 
 %package devel
 Summary:	Disk based hash library development files
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki dbh
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki dbh
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	dbh-examples
@@ -50,7 +50,7 @@ Pliki nagłówkowe biblioteki dbh.
 
 %package static
 Summary:	Disk based hash static library
-Summary(pl.UTF-8):   Statyczna biblioteka dbh
+Summary(pl.UTF-8):	Statyczna biblioteka dbh
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
