@@ -5,12 +5,13 @@
 Summary:	Disk based hash library
 Summary(pl.UTF-8):	Biblioteka obsługująca tablice haszujące na dysku
 Name:		dbh
-Version:	4.5.0
+Version:	5.0.7
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
-# Source0-md5:	52b4b0d5ee0513dc796e989220c11bc6
+# Source0-md5:	15e1bd22aca735415dfb5ec60f48181b
+Patch0:		am.patch
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -62,13 +63,14 @@ Statyczna biblioteka dbh.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
-%{__automake}
-%{__autoheader}
 %{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static}
 
@@ -82,8 +84,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT
 
 cd examples
+install filesystem.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-install trafico.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,13 +97,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/lib*.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/*.html
 %attr(755,root,root) %{_libdir}/lib*.so
+%{_gtkdocdir}/dbh
 %{_libdir}/lib*.la
-%{_includedir}/*.h
+%{_includedir}/dbh
 %{_pkgconfigdir}/*.pc
 %{_examplesdir}/%{name}-%{version}
 
