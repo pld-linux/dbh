@@ -9,12 +9,14 @@ Version:	5.0.7
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/dbh/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/dbh/%{name}-%{version}.tar.gz
 # Source0-md5:	15e1bd22aca735415dfb5ec60f48181b
 Patch0:		am.patch
+Patch1:		%{name}-bsd.patch
 URL:		http://dbh.sourceforge.net/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
+BuildRequires:	gtk-doc >= 1.15
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,9 +63,21 @@ Disk based hash static library.
 %description static -l pl.UTF-8
 Statyczna biblioteka dbh.
 
+%package apidocs
+Summary:	API documentation for dbh library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki dbh
+Group:		Documentation
+
+%description apidocs
+API documentation for dbh library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki dbh.
+
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -72,7 +86,8 @@ Statyczna biblioteka dbh.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{!?with_static_libs:--disable-static}
+	%{!?with_static_libs:--disable-static} \
+	--without-examples
 
 %{__make}
 
@@ -83,9 +98,12 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd examples
-install filesystem.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-install simple_hash.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -p examples/{filesystem,simple_hash}.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+
+# belongs to man3
+%{__mv} $RPM_BUILD_ROOT%{_mandir}/man1/dbh.h.1 $RPM_BUILD_ROOT%{_mandir}/man3/dbh.h.3
+# just a copy of dbh.h.1, useless
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/dbh.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,21 +113,26 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/lib*.so.0
+%doc AUTHORS ChangeLog NEWS
+%attr(755,root,root) %{_libdir}/libdbh2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libdbh2.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_gtkdocdir}/dbh
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libdbh2.so
+%{_libdir}/libdbh2.la
 %{_includedir}/dbh
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/dbh2.pc
 %{_examplesdir}/%{name}-%{version}
+%{_mandir}/man3/dbh.h.3*
+%{_mandir}/man3/dbh_*.3*
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libdbh2.a
 %endif
+
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/dbh
