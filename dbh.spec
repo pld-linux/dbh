@@ -1,12 +1,12 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
-#
+
 Summary:	Disk based hash library
 Summary(pl.UTF-8):	Biblioteka obsługująca tablice haszujące na dysku
 Name:		dbh
 Version:	5.0.7
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/dbh/%{name}-%{version}.tar.gz
@@ -35,8 +35,8 @@ drzew binarnych na dysku. Biblioteka pozwala rozszerzać pojęcie bazy
 danych o bogactwo danych elektronicznych, takich jak informacje
 graficzne. Można udowodnić matematycznie, że przy użyciu
 wielowymiarowego drzewa binarnego czas dostępu do każdego konkretnego
-rekordu jest minimalny (używając zasady punktów krytycznych), co
-daje środki do tworzenia zoptymalizowanych baz danych dla aplikacji.
+rekordu jest minimalny (używając zasady punktów krytycznych), co daje
+środki do tworzenia zoptymalizowanych baz danych dla aplikacji.
 
 %package devel
 Summary:	Disk based hash library development files
@@ -67,6 +67,9 @@ Statyczna biblioteka dbh.
 Summary:	API documentation for dbh library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki dbh
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for dbh library.
