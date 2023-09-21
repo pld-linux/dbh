@@ -1,25 +1,11 @@
---- dbh-5.0.7/Makefile.am.orig	2014-01-14 18:59:35.943695695 +0100
-+++ dbh-5.0.7/Makefile.am	2014-01-14 18:59:57.690698675 +0100
-@@ -14,7 +14,7 @@ docs = \
-     doc/html/style.css\
-     doc/html/up.png
+--- libdbh2-5.0.22/Makefile.am.orig	2023-09-21 21:39:48.761803426 +0200
++++ libdbh2-5.0.22/Makefile.am	2023-09-21 21:41:00.701413695 +0200
+@@ -35,7 +35,7 @@ docs = \
+ 	    doc/html/style.css\
+ 	    doc/html/up.png
  
 -docdir = $(datadir)/gtk-doc/html/dbh
 +docdir = $(datadir)/doc/gtk-doc/html/dbh
  doc_DATA = $(docs)
  
- EXTRA_DIST =  \
-@@ -56,13 +56,8 @@ test: all
- ACLOCAL_AMFLAGS = -I m4
- 
- 
--if WANT_DEBIAN
--pkgsharedir = $(datadir)/pkgconfig
--pkgshare_DATA = dbh2.pc
--else
- pkgconfigdir = $(libdir)/pkgconfig
- pkgconfig_DATA = dbh2.pc
--endif
- ##################################################################
- #maintainer-clean
- svnclean: 
+ examples = \

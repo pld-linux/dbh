@@ -1,23 +1,23 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static library
+%bcond_without	static_libs	# static library
 
 Summary:	Disk based hash library
 Summary(pl.UTF-8):	Biblioteka obsługująca tablice haszujące na dysku
 Name:		dbh
-Version:	5.0.7
-Release:	2
-License:	LGPL
+Version:	5.0.22
+Release:	1
+License:	GPL v3+
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/dbh/%{name}-%{version}.tar.gz
-# Source0-md5:	15e1bd22aca735415dfb5ec60f48181b
+Source0:	https://downloads.sourceforge.net/dbh/libdbh2-%{version}.tar.gz
+# Source0-md5:	f8c592f6fd4d336cbb5529dc52177e4f
 Patch0:		am.patch
-Patch1:		%{name}-bsd.patch
-URL:		http://dbh.sourceforge.net/
+URL:		http://www.gnu.org/software/libdbh/
 BuildRequires:	autoconf >= 2.52
-BuildRequires:	automake
-BuildRequires:	gtk-doc >= 1.15
-BuildRequires:	libtool
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	gtk-doc >= 1.18
+BuildRequires:	libtool >= 2:2
+BuildRequires:	rpm-build >= 4.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,7 +43,7 @@ Summary:	Disk based hash library development files
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki dbh
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	dbh-examples
+Obsoletes:	dbh-examples < 1.0.14-1
 
 %description devel
 Disk based hash library development files.
@@ -76,9 +76,8 @@ API documentation for dbh library.
 Dokumentacja API biblioteki dbh.
 
 %prep
-%setup -q
+%setup -q -n libdbh2-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -87,6 +86,7 @@ Dokumentacja API biblioteki dbh.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
 	--without-examples
 
@@ -99,12 +99,10 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cp -p examples/{filesystem,simple_hash}.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libdbh.la
 
-# belongs to man3
-%{__mv} $RPM_BUILD_ROOT%{_mandir}/man1/dbh.h.1 $RPM_BUILD_ROOT%{_mandir}/man3/dbh.h.3
-# just a copy of dbh.h.1, useless
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/dbh.1
+cp -p examples/{filesystem,simple_hash}.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,24 +112,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS
-%attr(755,root,root) %{_libdir}/libdbh2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libdbh2.so.0
+%doc AUTHORS ChangeLog NEWS README TODO
+%attr(755,root,root) %{_libdir}/libdbh.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libdbh.so.2
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libdbh2.so
-%{_libdir}/libdbh2.la
+%attr(755,root,root) %{_libdir}/libdbh.so
 %{_includedir}/dbh
 %{_pkgconfigdir}/dbh2.pc
 %{_examplesdir}/%{name}-%{version}
+%{_mandir}/man3/dbh.3*
 %{_mandir}/man3/dbh.h.3*
 %{_mandir}/man3/dbh_*.3*
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libdbh2.a
+%{_libdir}/libdbh.a
 %endif
 
 %files apidocs
