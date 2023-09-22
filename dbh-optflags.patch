@@ -1,0 +1,38 @@
+--- libdbh2-5.0.22/m4/rfm-conditionals.m4.orig	2015-04-22 23:28:30.000000000 +0200
++++ libdbh2-5.0.22/m4/rfm-conditionals.m4	2023-09-22 15:43:28.034435683 +0200
+@@ -130,14 +130,12 @@ then
+ 	AC_SUBST(CORE)
+ 	AC_DEFINE_UNQUOTED([CORE],[$with_core],[enable CORE])
+ 	AC_MSG_NOTICE([You enabled core dumps. Good for you.])
+-	CFLAGS="-O0 -ggdb"
+ elif test "$with_core" != ""
+ then
+ 	AC_SUBST(WITH_CORE) WITH_CORE=yes
+ 	AC_MSG_NOTICE([Your specific kind of core dumps is $with_core])
+ 	AC_SUBST(CORE)
+ 	AC_DEFINE_UNQUOTED([CORE],[$with_core],[enable CORE])
+-	CFLAGS="-O0 -ggdb"
+ 
+ else
+ 	AC_SUBST(WITH_CORE) WITH_CORE=no
+@@ -159,7 +157,6 @@ then
+ 	AC_DEFINE_UNQUOTED([DEBUG],[$with_debug],[enable DEBUG])
+ 	AC_MSG_NOTICE([You enabled debug. Good for you.])
+ 	DB=--with-debug
+-	CFLAGS="-O0 -ggdb"
+ elif test "$with_debug" != ""
+ then
+ 	AC_SUBST(WITH_CORE) WITH_CORE=yes
+@@ -169,12 +166,10 @@ then
+ 	AC_MSG_NOTICE([Your specific kind of debug is $with_debug])
+ 	AC_SUBST(DEBUG)
+ 	AC_DEFINE_UNQUOTED([DEBUG],[$with_debug],[enable DEBUG])
+-	CFLAGS="-O0 -ggdb"
+ 
+ else
+ 	AC_SUBST(WITH_DEBUG) WITH_DEBUG=no
+ 	AC_MSG_NOTICE([No debug for you.])
+-	CFLAGS="-O2"
+ fi
+ ])
+ 

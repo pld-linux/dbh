@@ -6,12 +6,13 @@ Summary:	Disk based hash library
 Summary(pl.UTF-8):	Biblioteka obsługująca tablice haszujące na dysku
 Name:		dbh
 Version:	5.0.22
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/dbh/libdbh2-%{version}.tar.gz
 # Source0-md5:	f8c592f6fd4d336cbb5529dc52177e4f
 Patch0:		am.patch
+Patch1:		%{name}-optflags.patch
 URL:		http://www.gnu.org/software/libdbh/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake >= 1:1.11
@@ -78,6 +79,7 @@ Dokumentacja API biblioteki dbh.
 %prep
 %setup -q -n libdbh2-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
